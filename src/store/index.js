@@ -1,8 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit';
-import bookingReducer from './slice/bookingSlice';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import thunk from 'redux-thunk';
+import flightReducer from './reducers/flightReducer';
+import bookingReducer from './reducers/bookingReducer';
 
-export default configureStore({
-  reducer: {
-    booking: bookingReducer,
-  },
+const rootReducer = combineReducers({
+  flights: flightReducer,
+  booking: bookingReducer
 });
+
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
+export default store;
