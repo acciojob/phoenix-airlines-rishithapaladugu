@@ -1,34 +1,24 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from '../store';
-import Header from './Header';
-import Landing from './Landing';
-import FlightSearch from './FlightSearch';
-import FlightResults from './FlightResults';
-import FlightBooking from './FlightBooking';
-import Confirmation from './Confirmation';
-import './../styles/App.css';
+import { Switch, Route, Link } from "react-router-dom";
+import Home from "./Home";
+import FlightSearch from "./FlightSearch";
+import BookingForm from "./BookingForm";
+import Confirmation from "./Confirmation";
 
-const App = () => {
+export default function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        <div className="app">
-          <Header />
-          <main className="main-content">
-            <Switch>
-              <Route exact path="/" component={Landing} />
-              <Route exact path="/flight-search" component={FlightSearch} />
-              <Route path="/flight-search/results" component={FlightResults} />
-              <Route path="/flight-booking" component={FlightBooking} />
-              <Route path="/confirmation" component={Confirmation} />
-            </Switch>
-          </main>
-        </div>
-      </Router>
-    </Provider>
-  );
-};
+    <div>
+      <nav>
+        <Link to="/">Home</Link> |{" "}
+        <Link to="/flight-search">Search Flights</Link>
+      </nav>
 
-export default App;
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/flight-search" component={FlightSearch} />
+        <Route path="/flight-booking" component={BookingForm} />
+        <Route path="/confirmation" component={Confirmation} />
+      </Switch>
+    </div>
+  );
+}
