@@ -1,26 +1,34 @@
-// src/components/Confirmation.js
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
-export default function Confirmation() {
-  const booking = useSelector((state) => state.flights.booking);
+const Confirmation = () => {
+  const history = useHistory();
+  const location = useLocation();
+  const booking = location.state;
+
+  if (!booking) {
+    history.replace("/"); // Redirect if accessed directly
+    return null;
+  }
+
+  const handleBack = () => {
+    history.push("/");
+  };
 
   return (
     <div>
-      <h2>Booking Confirmation</h2>
-      {booking ? (
-        <div>
-          <p>Name: {booking.name}</p>
-          <p>Email: {booking.email}</p>
-          <p>Phone: {booking.phone}</p>
-        </div>
-      ) : (
-        <p>No booking details found.</p>
-      )}
-      <Link to="/">
-        <button>Go to Home</button>
-      </Link>
+      <h1>Booking Confirmation</h1>
+      <p>Flight: {booking.flight}</p>
+      <p>Trip Type: {booking.tripType}</p>
+      <p>Source: {booking.source}</p>
+      <p>Destination: {booking.destination}</p>
+      <p>Date: {booking.date}</p>
+      <p>Name: {booking.name}</p>
+      <p>Email: {booking.email}</p>
+      <p>Phone: {booking.phone}</p>
+      <button onClick={handleBack}>Back to Home</button>
     </div>
   );
-}
+};
+
+export default Confirmation;
