@@ -1,24 +1,21 @@
+// src/components/App.js
 import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import Home from "./Home";
-import FlightSearch from "./FlightSearch";
-import BookingForm from "./BookingForm";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import FlightSearch from "./FlighSearch";
+import FlightBooking from "./FlightBooking";
 import Confirmation from "./Confirmation";
 
-export default function App() {
+const App = () => {
   return (
-    <div>
-      <nav>
-        <Link to="/">Home</Link> |{" "}
-        <Link to="/flight-search">Search Flights</Link>
-      </nav>
-
+    <Router>
       <Switch>
-        <Route path="/" exact component={Home} />
+        <Route exact path="/" component={FlightSearch} />
         <Route path="/flight-search" component={FlightSearch} />
-        <Route path="/flight-booking" component={BookingForm} />
+        <Route path="/flight-booking" component={FlightBooking} />
         <Route path="/confirmation" component={Confirmation} />
       </Switch>
-    </div>
+    </Router>
   );
-}
+};
+
+export default App;
