@@ -11,14 +11,25 @@ const FlightSearch = () => {
   const [error, setError] = useState("");
 
   const handleSearch = () => {
+    // Check if all fields are filled
     if (!source || !destination || !date) {
       setError("Please fill all fields");
       setSearchResults([]);
       return;
     }
+
+    // Validate that the selected date is in the future
+    const selectedDate = new Date(date);
+    const today = new Date();
+    if (selectedDate < today) {
+      setError("Please select a future date");
+      setSearchResults([]);
+      return;
+    }
+
     setError("");
 
-    // Use the exact cities Cypress expects for testing
+    // Simulate flight search results
     const flights = [
       `${source} → ${destination} on ${date}`,
       `${source} → ${destination} (Evening) on ${date}`,
@@ -28,6 +39,7 @@ const FlightSearch = () => {
   };
 
   const handleBook = (flight) => {
+    // Navigate to the booking page with flight details
     history.push("/flight-booking", {
       flight,
       tripType,
@@ -98,7 +110,6 @@ const FlightSearch = () => {
             </li>
           ))
         ) : (
-          // Always show at least one <li> so Cypress has an element
           <li>No flights available</li>
         )}
       </ul>
