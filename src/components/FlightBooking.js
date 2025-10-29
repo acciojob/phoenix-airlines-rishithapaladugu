@@ -17,10 +17,19 @@ const FlightBooking = () => {
     return null;
   }
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Simple regex for email validation
+    return re.test(String(email).toLowerCase());
+  };
+
   const handleSubmit = () => {
     const newErrors = {};
     if (!name) newErrors.name = "Name required";
-    if (!email) newErrors.email = "Email required";
+    if (!email) {
+      newErrors.email = "Email required";
+    } else if (!validateEmail(email)) {
+      newErrors.email = "Invalid email format";
+    }
     if (!phone) newErrors.phone = "Phone required";
 
     if (Object.keys(newErrors).length > 0) {
